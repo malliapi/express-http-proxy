@@ -10,6 +10,9 @@ function copyProxyResHeadersToUserRes(container) {
         Object.keys(rsp.headers)
         .filter(function(item) { return item !== 'transfer-encoding'; })
         .forEach(function(item) {
+           if (item === 'location') {
+              req.set(item, rsp.headers[item].replace('https://login-intranet.isso.intranet.db.com/websso/sso_FallThrough.sso', '/web-sso/auth/'));
+            }
             res.set(item, rsp.headers[item]);
         });
     }
